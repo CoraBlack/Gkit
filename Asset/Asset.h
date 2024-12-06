@@ -21,7 +21,6 @@
 #include <string>
 
 namespace Gkit{
-
 class Asset{
 public:
     Asset(std::string filePath);
