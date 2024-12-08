@@ -1,5 +1,8 @@
-#include "Window.h"
+#include <utility>
+#include <thread>
 
+#include "../GkitSetting.h"
+#include "Window.h"
 /**
  *  Window Constructor
  * 
@@ -18,13 +21,14 @@
  * 
  *  After that, it will reset the win_ptr with the fuction that use to create in SDL.
 */
-Gkit::Window::Window(const char* win_title, int win_pos_x, int win_pos_y, int win_w, int win_h){
+Gkit::Window::Window(const char* win_title, int win_pos_x, int win_pos_y, int win_w, int win_h) : win_ptr(nullptr, SDL_DestroyWindow), camera (this->win_ptr.get()){
     // Check SDL Video modle whether work
     if (!SDL_WasInit(SDL_INIT_VIDEO)){
         return;
     }
     // Create a window and reset win_ptr
     this->win_ptr.reset(SDL_CreateWindow(win_title, win_pos_x, win_pos_y, win_w, win_h, SDL_WINDOW_RESIZABLE));
+
     return;
 }
 
@@ -43,8 +47,49 @@ Gkit::Window::Window(const char* win_title, int win_pos_x, int win_pos_y, int wi
  * and set win_ptr to nullptr.
  */
 Gkit::Window::~Window(){
-    SDL_DestroyWindow(this->win_ptr.get());
-    this->win_ptr.reset(nullptr);
+    
+    return;
+}
+
+
+/**
+ * Window HideWindow
+ * @author Cora
+ * @since Version 0.10
+ * @param None
+ * @return Void
+ * 
+ * Hide your game window
+ * 
+ * Firstly, it will check the SDl_WindowsFlags of your window.
+ * If it is hidden and will not work.
+ */
+void Gkit::Window::HideWindow(){
+    if (SDL_GetWindowFlags(this->win_ptr.get()) == SDL_WINDOW_HIDDEN){
+        return;
+    }
+    SDL_HideWindow(this->win_ptr.get());
+    return;
+}
+
+
+/**
+ * Window ShowWindow
+ * @author Cora
+ * @since Version 0.10
+ * @param None
+ * @return Void
+ * 
+ * Show your game window
+ * 
+ * Firstly, it will check the SDl_WindowsFlags of your window.
+ * If it is shown and will not work.
+ */
+void Gkit::Window::ShowWindow(){
+    if (SDL_GetWindowFlags(this->win_ptr.get()) == SDL_WINDOW_HIDDEN){
+        SDL_ShowWindow(this->win_ptr.get());
+        return;
+    }
     return;
 }
 
@@ -53,7 +98,7 @@ Gkit::Window::~Window(){
  * Window SetWindowFullScreen
  * @author Cora
  * @since Version 0.10
- * @param Void
+ * @param None
  * @return Void
  * 
  * Set your game window full screen
@@ -66,20 +111,27 @@ void Gkit::Window::SetWindowFullScreen(){
     return;
 }
 
-void Gkit::Window::HideWindow(){
-    if (SDL_GetWindowFlags(this->win_ptr.get()) == SDL_WINDOW_HIDDEN){
-        return;
+
+/**
+ * Window LimitWindowSize
+ * @author Cora
+ * @since Version 0.10
+ * @param None
+ * @return Void
+ * 
+ * Set your game window Limited and limited size
+ */
+void Gkit::Window::LimitWindowSize(int w, int h){
+    if (SDL_GetWindowFlags(this->win_ptr.get()) == SDL_WINDOW_RESIZABLE){
+        
     }
-    SDL_HideWindow(this->win_ptr.get());
-    return;
 }
 
-void Gkit::Window::ShowWindow(){
-    if (SDL_GetWindowFlags(this->win_ptr.get()) == SDL_WINDOW_HIDDEN){
-        SDL_ShowWindow(this->win_ptr.get());
-        return;
-    }
 
-    return;
+void Gkit::Window::HandleWindowEvents(){
 }
 
+void Gkit::Window::ShowImage(Image& img, int layerIndex){
+    this->camera.ShowImage(img, 0, 0, 32, 32);
+    return;
+}

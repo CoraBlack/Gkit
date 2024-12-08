@@ -1,0 +1,12 @@
+[package]
+name = "RustHello"
+authors = ["Cora"]
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "./src/HelloWorld.rs"
+create-type = ["staticlib"]
+
+[dependencies]
+

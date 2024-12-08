@@ -80,11 +80,24 @@ bool Gkit::Asset::ChangeFilePath(std::string newFilePath){
     return true;
 }
 
-// Asset::GetFilePath
-// Return: String
-// Args: None
-// The work is just like its name 
-// -- return the file path
+/**
+ * Asset GetFilePath
+ * 
+ */
 std::string Gkit::Asset::GetFilePath(){
     return this->filePath;
+}
+
+/**
+ * Asset GetFileFormat
+ * 
+ */
+std::string Gkit::Asset::GetFileFormat(){
+    return this->fileFormat;
+}
+
+void Gkit::Asset::ClearFilePath(){
+    this->filePath.clear();
+    this->fileFormat.clear();
+    return;
 }

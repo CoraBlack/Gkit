@@ -13,9 +13,12 @@
 
 #include <string>
 #include <memory>
+#include <functional>
 #include <SDL2/SDL.h>
-
+#include "Camera.h"
 namespace Gkit{
+
+#define WINDOW_CENTER SDL_WINDOWPOS_CENTERED
 
 class Window{
 public:
@@ -25,11 +28,20 @@ public:
             );
     ~Window();
 
-    void SetWindowFullScreen();
     void HideWindow();
     void ShowWindow();
+    void SetWindowFullScreen();
+    void LimitWindowSize(int w, int h);
+    void RemoveLimitWindowSize();
+    void ShowImage(Image& img, int layerIndex = 0);
+
 private:
-    std::unique_ptr<SDL_Window>win_ptr;
+    bool isLimitWindowSize = false;
+    std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>win_ptr;
+    Camera camera;
+
+private:
+    void HandleWindowEvents();
 }; // class Window
 
 }// namespace Gkit

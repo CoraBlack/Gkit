@@ -1,0 +1,4 @@
+#ifndef GKITSETTING_H
+#define GKITSETTING_H
+
+#endif // GKITSETTING_H
