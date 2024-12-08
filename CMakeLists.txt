@@ -9,27 +9,41 @@ set(CXX_STANDARD 17)
 
 # Search source file
 set(SRC 
+    # Asset
     ./Asset/Asset.cpp 
-    ./Asset/Sprite.h 
-    ./Graphics/Window.cpp 
-    ./GameObject/Actor.h
+    ./Asset/Sprite.cpp 
+
+    # Graphics
+    ./Graphics/Window.cpp
+    
+    # GameObject
+    ./GameObject/Actor.cpp
+
+    # Gkit
+    ./Gkit.cpp
 )
 
 include_directories("C:/msys64/mingw64/lib/cmake")
 
-# Include path
-include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/Asset)
-include_directories(${CMAKE_SOURCE_DIR}/Sprite)
-include_directories(${CMAKE_SOURCE_DIR}/GameObject)
-include_directories(${SDL2_INDLUDE_DIRS})
+# Static link SDL2
+set(SDL_STATIC ON)
+set(BUILD_SHARED_LIBS OFF) 
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 
+# find SDL2 package
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-add_library(Gkit SHARED ${SRC})
+# Include path
+include_directories(Gkit ${CMAKE_SOURCE_DIR})
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Asset)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Sprite)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/GameObject)
+include_directories(Gkit ${SDL2_INDLUDE_DIRS})
 
-target_link_libraries(Gkit PRIVATE STATIC SDL2 SDL2main SDL2test)
-target_link_directories(Gkit PRIVATE STATIC SDL2_image)
-target_link_directories(Gkit PRIVATE STATIC SDL2_ttf)
+add_library(Gkit STATIC ${SRC})
+
+target_link_libraries(Gkit PRIVATE SDL2 SDL2main SDL2_test)
+target_link_libraries(Gkit PRIVATE SDL2_image)
+target_link_libraries(Gkit PRIVATE SDL2_ttf)

@@ -14,7 +14,7 @@
 #include <string>
 #include <memory>
 #include <SDL2/SDL.h>
-
+#include "Camera.h"
 namespace Gkit{
 
 class Window{
@@ -25,11 +25,15 @@ public:
             );
     ~Window();
 
-    void SetWindowFullScreen();
     void HideWindow();
     void ShowWindow();
+    void SetWindowFullScreen();
+    void LimitWindowSize(int w, int h);
+    void RemoveLimitWindowSize();
+
 private:
-    std::unique_ptr<SDL_Window>win_ptr;
+    bool isLimitWindowSize = false;
+    std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>win_ptr;
 }; // class Window
 
 }// namespace Gkit

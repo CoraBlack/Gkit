@@ -29,6 +29,9 @@ public:
     bool IsAvailiable();
     bool ChangeFilePath(std::string newFilePath);
     std::string GetFilePath();
+    std::string GetFileFormat();
+    void ClearFilePath();
+
 private:
     std::string filePath   = "";
     std::string fileFormat = ""; 
