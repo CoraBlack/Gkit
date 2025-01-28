@@ -1,16 +1,7 @@
 #include "Image.h"
 #include <functional>
 
-/**
- * Image constructor
- * @author Cora
- * @since Version 0.10
- * @param filePath -- string
- * @return void
- * 
- * 
- */
-Gkit::Image::Image(std::string filePath) : imageTexture(nullptr, SDL_DestroyTexture), Gkit::Asset::Asset(filePath){
+Gkit::Image::Image(std::string file_path) : image_texture(nullptr, SDL_DestroyTexture), Gkit::Asset::Asset(file_path){
     // Determine the file type
     if (this->GetFileFormat() == "jpg"){
         this->CheckSubsystemInitState(IMG_INIT_JPG);
@@ -52,26 +43,13 @@ Gkit::Image::~Image(){
     return;
 }
 
-/**
- * Image CheckSubsystemInitState
- * @author Cora
- * @since Version 0.10
- * @param flags --IMG_InitFlags
- * @return int
- * 
- * This is a private function belonging Window class
- * 
- * If SDL IMG subsystem what we need is init, it will return 0.
- * 
- * Otherwise, it will return the result that is provide by IMG_Init. 
- */
+std::shared_ptr<SDL_Texture> Gkit::Image::GetTexture() const {
+    return this->image_texture;
+}
+
 int Gkit::Image::CheckSubsystemInitState(IMG_InitFlags flags){
     if (!SDL_WasInit(flags)){
         return IMG_Init(flags);
     }
     return 0;
-}
-
-std::shared_ptr<SDL_Texture> Gkit::Image::GetTexture() const {
-    return this->imageTexture;
 }

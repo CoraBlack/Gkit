@@ -1,103 +1,59 @@
 #include "Asset.h"
 #include <fstream>
 
-/**
- * Asset Constructor
- * @author Cora
- * @since Version 0.10
- * @param string filePath
- * @return void
- *  
- * Init a Asset object.
- * Before that, it will check the file is whether availiable.
- * 
- * If it is availiable, it would be added to the class.
- * 
- * Also, it will load the format.
- * It is useful when you need to know the file format
- * 
- * If it don't work, it will stop the progress.
- * You will get a Asset Object that is unavailiable.
- */
-Gkit::Asset::Asset(std::string filePath){
-    std::ifstream ifs(filePath);
+/// Constructor ///
+Gkit::Asset::Asset(std::string file_path){
+    std::ifstream ifs(file_path);
     // Can't find the file
     if(!ifs.is_open()){
         return;
     }
     // Load format of file
-    for(int i = filePath.size() - 1; i >= 0; --i){
-        if (filePath[i] == '.') break;
-        this->fileFormat.push_back(filePath[i]);
+    for(int i = file_path.size() - 1; i >= 0; --i){
+        if (file_path[i] == '.') break;
+        this->file_format.push_back(file_path[i]);
     }
 
-    this->filePath = filePath;
+    this->file_path = file_path;
     return;
 }
 
-/**
- * Asset::IsAvailiable
- * @author Cora
- * @since Version 0.10
- * @param void
- * @return bool
- * 
- * Check the file is availiable
- */
+/// Operation functions ///
 bool Gkit::Asset::IsAvailiable(){
-    return !this->filePath.empty();
+    return !this->file_path.empty();
 }
 
-/**
- * Asset::ChangeFilePath
- * @author Cora
- * @since Version 0.10
- * @param  newFilePath string
- * @return bool
- * 
- * This function can quickly help you change your Asset's path.
- * 
- * And it will return a bool singal to make you know whether it worked.
- * It's progress is like Asset Constructor
- */
-bool Gkit::Asset::ChangeFilePath(std::string newFilePath){
-    std::ifstream ifs(newFilePath);
+bool Gkit::Asset::ChangeFilePath(std::string new_file_path){
+    std::ifstream ifs(new_file_path);
     if(!ifs.is_open()){
         // Can't find the new file or unavailiable
         // And return false
         return false;
     }
 
-    fileFormat.clear();
+    this->file_format.clear();
     // Load format of file
-    for(int i = filePath.size() - 1; i >= 0; --i){
-        if (filePath[i] == '.') break;
-        this->fileFormat.push_back(filePath[i]);
+    for(int i = file_path.size() - 1; i >= 0; --i){
+        if (file_path[i] == '.') break;
+        this->file_format.push_back(file_path[i]);
     }
-    this->filePath = newFilePath;
+    this->file_path = new_file_path;
     // All of the progress worked
     // Return true
     return true;
 }
 
-/**
- * Asset GetFilePath
- * 
- */
 std::string Gkit::Asset::GetFilePath(){
-    return this->filePath;
+    return this->file_path;
 }
 
-/**
- * Asset GetFileFormat
- * 
- */
+
 std::string Gkit::Asset::GetFileFormat(){
-    return this->fileFormat;
+    return this->file_format;
 }
 
 void Gkit::Asset::ClearFilePath(){
-    this->filePath.clear();
-    this->fileFormat.clear();
+    this->file_path.clear();
+    this->file_format.clear();
     return;
 }

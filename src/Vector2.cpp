@@ -11,10 +11,20 @@ Gkit::Vector2 Gkit::Vector2::operator +(const Vector2& v) const {
 	return Vector2(x + v.x, y + v.y);
 }
 
-Gkit::Vector2 Gkit::Vector2::operator += (const Vector2& v) {
-	x += v.x;
+Gkit::Vector2 Gkit::Vector2::operator +(const long double& d) const {
+	return Vector2(this->x + d, this->y + d);
+}
+
+void Gkit::Vector2::operator += (const Vector2& v) {
+	x += v.x; 
 	y += v.y;
-	return *this;
+	return;
+}
+
+void Gkit::Vector2::operator += (const long double& d) {
+	x += d; 
+	y += d;
+	return;
 }
 
 Gkit::Vector2 Gkit::Vector2::operator - (const Vector2& v) const {

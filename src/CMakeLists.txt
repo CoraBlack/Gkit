@@ -12,7 +12,9 @@ set(SRC
     # Asset
     ./Asset/Asset.cpp 
     ./Asset/Image.cpp 
-    ./Asset/Sprite.cpp 
+
+    # Controller
+    ./Controller/PlayerController.cpp
 
     # Graphics
     ./Graphics/Window.cpp
@@ -20,12 +22,22 @@ set(SRC
     
     # GameObject
     ./GameObject/Actor.cpp
+    ./GameObject/Pawn.cpp
+    ./GameObject/Character.cpp
 
-    #Scenario
-    ./Scenario/Scenario.cpp
+    # Scene
+    ## Scenario
+    ./Scene/Scenario/Scenario.cpp
+    ## World
+    ./Scene/World/World.cpp 
+    ./Scene/World/WorldMode.cpp 
 
-    # Gkit
+    # Sprite
+    ./Sprite/Sprite.cpp
+
+    # Gkit Basic
     ./Gkit.cpp
+    ./Vector2.cpp
 )
 
 # include_directories("C:/msys64/mingw64/lib/cmake")
@@ -43,8 +55,13 @@ find_package(SDL2_ttf REQUIRED)
 # Include path
 include_directories(Gkit ${CMAKE_SOURCE_DIR})
 include_directories(Gkit ${CMAKE_SOURCE_DIR}/Asset)
-include_directories(Gkit ${CMAKE_SOURCE_DIR}/Sprite)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Controller)
 include_directories(Gkit ${CMAKE_SOURCE_DIR}/GameObject)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Graphics)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Scene/Scenario)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Scene/World)
+include_directories(Gkit ${CMAKE_SOURCE_DIR}/Sprite)
+
 include_directories(Gkit ${SDL2_INDLUDE_DIRS})
 
 add_library(Gkit SHARED ${SRC})

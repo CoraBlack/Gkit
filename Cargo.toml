@@ -3,10 +3,6 @@ name = "RustHello"
 authors = ["Cora"]
 version = "0.1.0"
 edition = "2021"
+build = "Rustlib.rs"
 
-[lib]
-path = "./src/HelloWorld.rs"
-create-type = ["staticlib"]
-
-[dependencies]
 

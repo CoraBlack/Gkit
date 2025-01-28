@@ -23,18 +23,76 @@
 namespace Gkit{
 class Asset{
 public:
-    Asset(std::string filePath);
+    /**
+     * Asset Constructor
+     * @author Cora
+     * @since Version 0.10
+     * @param file_path
+     * @return void
+     *  
+     * @note Init a Asset object.
+     * Before that, it will check the file is whether availiable.
+     * 
+     * If it is availiable, it would be added to the class.
+     * 
+     * Also, it will load the format.
+     * It is useful when you need to know the file format
+     * 
+     * If it don't work, it will stop the progress.
+     * You will get a Asset Object that is unavailiable.
+     */
+    Asset(std::string file_path);
     ~Asset() = default;
 
+    /**
+     * @brief Change the file path of the asset.
+     * @author Cora
+     * @since Version 0.10
+     * @param void
+     * @return bool
+     * @note Check the file is availiable
+     */
     bool IsAvailiable();
-    bool ChangeFilePath(std::string newFilePath);
+    /**
+     * @brief Clear the original file path and replace it with a new one.
+     * @author Cora
+     * @since Version 0.10
+     * @param  new_file_path string
+     * @return bool
+     * @note This function can quickly help you change your Asset's path.
+     * 
+     * And it will return a bool singal to make you know whether it worked.
+     * It's progress is like Asset Constructor
+     */
+    bool ChangeFilePath(std::string new_file_path);
+    /**
+     * @brief This function can quickly help you get your Asset's path. 
+     * @author Cora
+     * @since Version 0.10
+     * @param None
+     * @return std::string -- your Asset's path
+     */
     std::string GetFilePath();
+    /**
+     * @brief GetFileFormat
+     * @author Cora
+     * @since Version 0.10
+     * @param None
+     * @return std::string -- The file format of your Asset
+     */
     std::string GetFileFormat();
+    /**
+     * @brief Clear the file path of your Asset and make it unavailiable.
+     * @author Cora
+     * @since Version 0.10
+     * @param None
+     * @return Void
+     */
     void ClearFilePath();
 
 private:
-    std::string filePath   = "";
-    std::string fileFormat = ""; 
+    std::string file_path   = "";
+    std::string file_format = ""; 
 };// class Asset
 
 }// namespace cora

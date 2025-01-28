@@ -2,7 +2,7 @@
 #define ACTOR_H
 
 #include "../Vector2.h"
-#include "../Asset/Sprite.h"
+#include "../Sprite/Sprite.h"
 
 namespace Gkit{
 
@@ -11,9 +11,11 @@ public:
     Actor();
     ~Actor() = default;
     
+    Vector2 GetPosition() const;
+    
 private:
-    Vector2 actorPosition = {0.0f, 0.0f};
-    Sprite actorSprite;
+    Sprite  sprite;
+    Vector2 position = {0.0f, 0.0f};
 };
 
 }// namespace Gkit
